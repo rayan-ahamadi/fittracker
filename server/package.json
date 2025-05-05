@@ -1,0 +1,31 @@
+{
+  "name": "fittrack",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "dev": "nodemon index.js",
+    "start": "node index.js",
+    "migrate": "npx prisma migrate dev",
+    "migrate:deploy": "npx prisma migrate deploy"
+  },
+  "_moduleAliases": {
+    "@entities": "./entities",
+    "@helpers": "./helpers",
+    "@middlewares": "./middlewares",
+    "@uploads": "./uploads",
+    "@configs": "./configs",
+    "@prismaORM": "./db/prisma"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "@prisma/client": "^6.7.0",
+    "express": "^5.1.0",
+    "module-alias": "^2.2.3",
+    "node": "^22.15.0",
+    "nodemon": "^3.1.10",
+    "prisma": "^6.7.0"
+  }
+}
