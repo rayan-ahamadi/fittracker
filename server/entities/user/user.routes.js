@@ -1,7 +1,19 @@
+const { 
+    getAllUsers,
+    getUser,
+    register,
+    login
+} = require('./user.controller'); // importation du controller
+
 const express = require('express');
-const router = express.Router();
-const { getAllUsers } = require('./user.controller');
+const Router = express.Router();
 
-router.get('/', getAllUsers);
 
-module.exports = router;
+// Router.get('/all', getAllUsers);
+
+Router.get('/:id', getUser);
+Router.post('/register', register);
+Router.post('/login', login);
+
+
+module.exports = Router;

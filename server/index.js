@@ -15,7 +15,7 @@ app.get('/', (req, res) => {
 app.use('/api/user', require('@entities/user/user.routes'));
 
 /* -- Routes Privées -- */
-// app.use('api/protected/user', require('@entities/user/user.protected.routes'));
+app.use('/api/protected/user', require('@entities/user/user.protected.routes'));
 
 app.listen(PORT, () => {
     console.log(`Server is running on http://localhost:${PORT}`);
