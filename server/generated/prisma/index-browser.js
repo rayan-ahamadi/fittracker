@@ -156,7 +156,7 @@ exports.Prisma.ProgressScalarFieldEnum = {
 exports.Prisma.WorkoutScalarFieldEnum = {
   id: 'id',
   userId: 'userId',
-  date: 'date',
+  weekDay: 'weekDay',
   duree: 'duree',
   calories: 'calories',
   createdAt: 'createdAt'

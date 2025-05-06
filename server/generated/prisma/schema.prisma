@@ -53,14 +53,14 @@ model Progress {
 }
 
 model Workout {
-  id        Int                @id @default(autoincrement())
-  userId    String
-  user      User               @relation(fields: [userId], references: [id])
-  date      DateTime
-  duree     Int // en minutes
-  calories  Float
-  exercises WorkoutExercises[]
-  createdAt DateTime           @default(now())
+  id               Int                @id @default(autoincrement())
+  userId           String
+  user             User               @relation(fields: [userId], references: [id])
+  weekDay          String
+  duree            Int // en minutes
+  calories         Float
+  createdAt        DateTime           @default(now())
+  WorkoutExercises WorkoutExercises[]
 }
 
 // Table de liaison entre Workout et ExternalExercise
