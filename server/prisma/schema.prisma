@@ -15,16 +15,76 @@ datasource db {
 }
 
 model User {
-  id        String   @id @default(cuid())
+  id        String     @id @default(cuid())
   name      String?
-  surname   String?
-  username  String? @unique
-  email     String?  @unique
+  surname   String
+  username  String?    @unique
+  email     String?    @unique
   birthdate DateTime?
-  age       Int
-  size      Int
-  weight    Int
+  age       Int?
+  sizeCm    Int?
+  weight    Int?
+  gender    String?
   password  String?
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
+  createdAt DateTime   @default(now())
+  updatedAt DateTime   @updatedAt
+  Goal      Goal[]
+  Workout   Workout[]
+  Progress  Progress[]
+}
+
+model Goal {
+  id            Int      @id @default(autoincrement())
+  userId        String
+  user          User     @relation(fields: [userId], references: [id])
+  type          String
+  objectifPoids Float?
+  objectifDate  DateTime
+  createdAt     DateTime @default(now())
+}
+
+model Progress {
+  id       Int      @id @default(autoincrement())
+  userId   String
+  user     User     @relation(fields: [userId], references: [id])
+  date     DateTime
+  poidsKg  Float
+  calories Float?
+}
+
+model Workout {
+  id        Int                @id @default(autoincrement())
+  userId    String
+  user      User               @relation(fields: [userId], references: [id])
+  date      DateTime
+  duree     Int // en minutes
+  calories  Float
+  exercises WorkoutExercises[]
+  createdAt DateTime           @default(now())
+}
+
+// Table de liaison entre Workout et ExternalExercise
+model WorkoutExercises {
+  id                 Int              @id @default(autoincrement())
+  workoutId          Int
+  workout            Workout          @relation(fields: [workoutId], references: [id])
+  externalExerciseId Int
+  externalExercise   ExternalExercise @relation(fields: [externalExerciseId], references: [id])
+  series             Int
+  repetitions        Int
+  poidsKg            Float?
+  createdAt          DateTime         @default(now())
+}
+
+model ExternalExercise {
+  id               Int                @id @default(autoincrement())
+  name             String
+  description      String?
+  muscleGroups     Json? // Array d'objets ayant comme propriété le résultat de la route wger /muscle
+  musclesSecondary Json? // Array d'objets ayant comme propriété le résultat de la route wger /muscle
+  equipment        Json? // Array d'objets ayant comme propriété le résultat de la route wger /equipment
+  license_author   String?
+  createdAt        DateTime           @default(now())
+  updatedAt        DateTime           @updatedAt
+  WorkoutExercises WorkoutExercises[]
 }

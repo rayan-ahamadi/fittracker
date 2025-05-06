@@ -128,9 +128,58 @@ exports.Prisma.UserScalarFieldEnum = {
   email: 'email',
   birthdate: 'birthdate',
   age: 'age',
-  size: 'size',
+  sizeCm: 'sizeCm',
   weight: 'weight',
+  gender: 'gender',
   password: 'password',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+};
+
+exports.Prisma.GoalScalarFieldEnum = {
+  id: 'id',
+  userId: 'userId',
+  type: 'type',
+  objectifPoids: 'objectifPoids',
+  objectifDate: 'objectifDate',
+  createdAt: 'createdAt'
+};
+
+exports.Prisma.ProgressScalarFieldEnum = {
+  id: 'id',
+  userId: 'userId',
+  date: 'date',
+  poidsKg: 'poidsKg',
+  calories: 'calories'
+};
+
+exports.Prisma.WorkoutScalarFieldEnum = {
+  id: 'id',
+  userId: 'userId',
+  date: 'date',
+  duree: 'duree',
+  calories: 'calories',
+  createdAt: 'createdAt'
+};
+
+exports.Prisma.WorkoutExercisesScalarFieldEnum = {
+  id: 'id',
+  workoutId: 'workoutId',
+  externalExerciseId: 'externalExerciseId',
+  series: 'series',
+  repetitions: 'repetitions',
+  poidsKg: 'poidsKg',
+  createdAt: 'createdAt'
+};
+
+exports.Prisma.ExternalExerciseScalarFieldEnum = {
+  id: 'id',
+  name: 'name',
+  description: 'description',
+  muscleGroups: 'muscleGroups',
+  musclesSecondary: 'musclesSecondary',
+  equipment: 'equipment',
+  license_author: 'license_author',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt'
 };
@@ -138,6 +187,11 @@ exports.Prisma.UserScalarFieldEnum = {
 exports.Prisma.SortOrder = {
   asc: 'asc',
   desc: 'desc'
+};
+
+exports.Prisma.NullableJsonNullValueInput = {
+  DbNull: Prisma.DbNull,
+  JsonNull: Prisma.JsonNull
 };
 
 exports.Prisma.QueryMode = {
@@ -150,9 +204,20 @@ exports.Prisma.NullsOrder = {
   last: 'last'
 };
 
+exports.Prisma.JsonNullValueFilter = {
+  DbNull: Prisma.DbNull,
+  JsonNull: Prisma.JsonNull,
+  AnyNull: Prisma.AnyNull
+};
+
 
 exports.Prisma.ModelName = {
-  User: 'User'
+  User: 'User',
+  Goal: 'Goal',
+  Progress: 'Progress',
+  Workout: 'Workout',
+  WorkoutExercises: 'WorkoutExercises',
+  ExternalExercise: 'ExternalExercise'
 };
 
 /**
