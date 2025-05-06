@@ -6,7 +6,9 @@ const {
     deleteUser,
     createGoals,
     updateGoals,
-    getUserGoals
+    getUserGoals,
+    updateProgress,
+    deleteProgress,
 } = require('./user.controller'); // importation du controller
 
 const express = require('express');
@@ -21,3 +23,7 @@ Router.get('/goals', verifyToken, getUserGoals); // Route protégée pour récup
 
 Router.put('/update', verifyToken, updateUser); // Route protégée pour mettre à jour les informations de l'utilisateur
 Router.delete('/delete', verifyToken, deleteUser); // Route protégée pour supprimer l'utilisateur
+
+Router.post('/progress', verifyToken, updateProgress); // Route protégée pour ajouter la progression du jour de l'utilisateur
+Router.put('/progress', verifyToken, updateProgress); // Route protégée pour mettre à jour la progression du jour de l'utilisateur
+Router.delete('/progress/:id', verifyToken, deleteProgress); // Route protégée pour supprimer une progression d'un l'utilisateur

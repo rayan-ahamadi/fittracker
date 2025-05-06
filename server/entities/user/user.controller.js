@@ -200,6 +200,80 @@ const updateGoals = async (req, res) => {
     }
 }
 
+
+const updateProgress = async (req, res) => {
+    const token = req.cookies.jwt;
+    const decoded = decodeToken(token);
+    const userId = decoded.id;
+    if (!userId) {
+        return res.status(401).json({ message: 'Utilisateur non authentifié' });
+    }
+
+    // Vérifier si l'utilisateur a des objectifs avant de créer une progression
+    const goals = await prisma.goal.findUnique({
+        where: { userId: userId }
+    });
+    if (!goals) {
+        return res.status(400).json({ message: 'Aucun objectif trouvé pour cet utilisateur' });
+    }
+
+    // Vérifier si la progression est déjà créée pour la date actuelle
+    const today = new Date();
+    const existingProgress = await prisma.progress.findUnique({
+        where: {
+            userId: userId,
+            date: {
+                gte: new Date(today.setHours(0, 0, 0, 0)),
+                lte: new Date(today.setHours(23, 59, 59, 999))
+            }
+        }
+    });
+
+    const progress = req.body;
+    try {
+
+        if (existingProgress) {
+            // Si la progression existe déjà, on la met à jour
+            const updatedProgress = await prisma.progress.update({
+                where: { id: existingProgress.id },
+                data: {
+                    ...progress
+                }
+            });
+            return res.status(200).json({message: 'Progression du jour mise à jour avec succès', updatedProgress});
+        } else {
+            const updatedProgress = await prisma.progress.create({
+                data: {
+                    userId: userId,
+                    ...progress
+                }
+            });
+            res.status(200).json({message: 'Progression du jour ajouté avec succès', updatedProgress});
+        } 
+    } catch (error) {
+        res.status(500).json({ error: 'Erreur lors de la mise à jour de vos objectifs' });
+    }
+}
+
+const deleteProgress = async (req, res) => {
+    const token = req.cookies.jwt;
+    const decoded = decodeToken(token);
+    const userId = decoded.id;
+    if (!userId) {
+        return res.status(401).json({ message: 'Utilisateur non authentifié' });
+    }
+
+    const progressId = req.params.id;
+    try {
+        await prisma.progress.delete({
+            where: { id: progressId }
+        });
+        res.status(200).json({ message: 'Progression supprimée avec succès' });
+    } catch (error) {
+        res.status(500).json({ error: 'Erreur lors de la suppression de la progression' });
+    }
+}
+
 module.exports = {
     getAllUsers,
     getUser,
@@ -210,5 +284,7 @@ module.exports = {
     createGoals,
     updateGoals,
     getUserGoals,
-    updateGoals
+    updateGoals,
+    updateProgress,
+    deleteProgress
 }

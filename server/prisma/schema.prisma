@@ -48,7 +48,7 @@ model Progress {
   id       Int      @id @default(autoincrement())
   userId   String
   user     User     @relation(fields: [userId], references: [id])
-  date     DateTime
+  date     DateTime @default(now())
   poidsKg  Float
   calories Float?
 }
