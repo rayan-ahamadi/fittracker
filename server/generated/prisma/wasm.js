@@ -133,7 +133,8 @@ exports.Prisma.UserScalarFieldEnum = {
   gender: 'gender',
   password: 'password',
   createdAt: 'createdAt',
-  updatedAt: 'updatedAt'
+  updatedAt: 'updatedAt',
+  role: 'role'
 };
 
 exports.Prisma.GoalScalarFieldEnum = {

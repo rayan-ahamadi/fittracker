@@ -1,5 +1,5 @@
-const {checkTokens} = require('@helpers/jwtHelper');
-const {verifyToken} = require('@middlewares/authMiddleware');
+const { checkTokens } = require('@helpers/jwtHelper');
+const { verifyToken } = require('@middlewares/authMiddleware');
 const {
     getAllUsers,
     updateUser,
@@ -9,6 +9,7 @@ const {
     getUserGoals,
     updateProgress,
     deleteProgress,
+    getAllProgress,
 } = require('./user.controller'); // importation du controller
 
 const express = require('express');
@@ -27,3 +28,6 @@ Router.delete('/delete', verifyToken, deleteUser); // Route protégée pour supp
 Router.post('/progress', verifyToken, updateProgress); // Route protégée pour ajouter la progression du jour de l'utilisateur
 Router.put('/progress', verifyToken, updateProgress); // Route protégée pour mettre à jour la progression du jour de l'utilisateur
 Router.delete('/progress/:id', verifyToken, deleteProgress); // Route protégée pour supprimer une progression d'un l'utilisateur
+Router.get('/progress', verifyToken, getAllProgress); // Route protégée pour récupérer tous les utilisateurs
+
+module.exports = Router;

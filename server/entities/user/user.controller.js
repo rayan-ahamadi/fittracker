@@ -1,7 +1,7 @@
-const {generateToken, generateRefreshToken,decodeToken} = require('@helpers/jwtHelper');
-const {hashPassword, comparePassword} = require('@helpers/passwordHelper');
-const prisma = require('@prismaORM');
-const { get } = require('http');
+const { generateToken, generateRefreshToken, decodeToken } = require('@helpers/jwtHelper');
+const { hashPassword, comparePasswords } = require('@helpers/bcryptHelper');
+const { prisma } = require('@prismaORM');
+
 
 const getAllUsers = async (req, res) => {
     try {
@@ -28,13 +28,18 @@ const getUser = async (req, res) => {
 }
 
 const register = async (req, res) => {
-    const newUser = req.body.user;
+    const newUser = req.body;
     newUser.password = await hashPassword(newUser.password);
+    newUser.birthdate = new Date(newUser.birthdate);
+
     try {
         const user = await prisma.user.create({
-            data: newUser
+            data: {
+                ...newUser
+            }
         });
-        
+
+
         const token = generateToken({ id: user.id, role: user.role });
         const refreshToken = generateRefreshToken({ id: user.id, role: user.role });
 
@@ -53,7 +58,8 @@ const register = async (req, res) => {
             user: user
         });
     } catch (error) {
-        res.status(500).json({ error: 'Erreur lors de la création de l\'utilisateur' });
+        console.log(error);
+        res.status(500).json({ error: 'Erreur lors de la création de l\'utilisateur : ' + error });
     }
 }
 
@@ -68,7 +74,7 @@ const login = async (req, res) => {
             return res.status(401).json({ message: 'Utilisateur non trouvé' });
         }
 
-        const isPasswordValid = await comparePassword(password, user.password);
+        const isPasswordValid = await comparePasswords(password, user.password);
         if (!isPasswordValid) {
             return res.status(401).json({ message: 'Mot de passe incorrect' });
         }
@@ -92,7 +98,7 @@ const login = async (req, res) => {
             user: user
         });
     } catch (error) {
-        res.status(500).json({ error: 'Erreur lors de la connexion' });
+        res.status(500).json({ error: 'Erreur lors de la connexion :' + error });
     }
 }
 
@@ -147,7 +153,7 @@ const getUserGoals = async (req, res) => {
     }
 
     try {
-        const goals = await prisma.goal.find({
+        const goals = await prisma.goal.findUnique({
             where: { userId: userId }
         });
         res.status(200).json(goals);
@@ -164,12 +170,21 @@ const createGoals = async (req, res) => {
         return res.status(401).json({ message: 'Utilisateur non authentifié' });
     }
 
-    const goals = req.body;
+    // Vérifier si l'utilisateur a déjà un objectif
+    const existingGoals = await prisma.goal.findUnique({
+        where: { userId: userId }
+    });
+    if (existingGoals) {
+        return res.status(400).json({ message: 'Vous avez déjà un objectif, veuillez le mettre à jour' });
+    }
+
+    const userGoals = req.body;
+    userGoals.objectifDate = new Date(userGoals.objectifDate);
     try {
         const goals = await prisma.goal.create({
             data: {
                 userId: userId,
-                ...goals
+                ...userGoals
             }
         });
         res.status(200).json(goals);
@@ -186,10 +201,19 @@ const updateGoals = async (req, res) => {
         return res.status(401).json({ message: 'Utilisateur non authentifié' });
     }
 
+    // Vérifier si l'utilisateur a des objectifs avant de les mettre à jour
+    const existingGoals = await prisma.goal.findUnique({
+        where: { userId: userId }
+    });
+    if (!existingGoals) {
+        return res.status(400).json({ message: 'Aucun objectif trouvé pour cet utilisateur' });
+    }
+
     const goals = req.body;
+    goals.objectifDate = new Date(goals.objectifDate);
     try {
         const updatedGoals = await prisma.goal.update({
-            where: { id: goals.id },
+            where: { userId: userId },
             data: {
                 ...goals
             }
@@ -240,7 +264,7 @@ const updateProgress = async (req, res) => {
                     ...progress
                 }
             });
-            return res.status(200).json({message: 'Progression du jour mise à jour avec succès', updatedProgress});
+            return res.status(200).json({ message: 'Progression du jour mise à jour avec succès', updatedProgress });
         } else {
             const updatedProgress = await prisma.progress.create({
                 data: {
@@ -248,8 +272,8 @@ const updateProgress = async (req, res) => {
                     ...progress
                 }
             });
-            res.status(200).json({message: 'Progression du jour ajouté avec succès', updatedProgress});
-        } 
+            res.status(200).json({ message: 'Progression du jour ajouté avec succès', updatedProgress });
+        }
     } catch (error) {
         res.status(500).json({ error: 'Erreur lors de la mise à jour de vos objectifs' });
     }
@@ -274,17 +298,37 @@ const deleteProgress = async (req, res) => {
     }
 }
 
+const getAllProgress = async (req, res) => {
+    const token = req.cookies.jwt;
+    const decoded = decodeToken(token);
+    const userId = decoded.id;
+    if (!userId) {
+        return res.status(401).json({ message: 'Utilisateur non authentifié' });
+    }
+
+    try {
+        const progress = await prisma.progress.findMany({
+            where: { userId: userId }
+        });
+        res.status(200).json(progress);
+    } catch (error) {
+        res.status(500).json({ error: 'Erreur lors de la récupération de la progression' });
+    }
+}
+
+
 module.exports = {
     getAllUsers,
     getUser,
     updateUser,
     deleteUser,
     register,
-    login, 
+    login,
     createGoals,
     updateGoals,
     getUserGoals,
     updateGoals,
     updateProgress,
-    deleteProgress
+    deleteProgress,
+    getAllProgress
 }

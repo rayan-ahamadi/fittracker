@@ -1,0 +1,5 @@
+-- AlterTable
+ALTER TABLE "Progress" ALTER COLUMN "date" SET DEFAULT CURRENT_TIMESTAMP;
+
+-- AlterTable
+ALTER TABLE "User" ADD COLUMN     "role" TEXT DEFAULT 'user';

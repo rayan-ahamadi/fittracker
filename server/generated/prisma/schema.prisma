@@ -17,13 +17,13 @@ datasource db {
 model User {
   id        String     @id @default(cuid())
   name      String?
-  surname   String
+  surname   String?
   username  String?    @unique
   email     String?    @unique
   birthdate DateTime?
   age       Int?
   sizeCm    Int?
-  weight    Int?
+  weight    Float?
   gender    String?
   password  String?
   createdAt DateTime   @default(now())
@@ -31,11 +31,12 @@ model User {
   Goal      Goal[]
   Workout   Workout[]
   Progress  Progress[]
+  role      String?    @default("user")
 }
 
 model Goal {
   id            Int      @id @default(autoincrement())
-  userId        String
+  userId        String   @unique
   user          User     @relation(fields: [userId], references: [id])
   type          String
   objectifPoids Float?
@@ -45,9 +46,9 @@ model Goal {
 
 model Progress {
   id       Int      @id @default(autoincrement())
-  userId   String
+  userId   String   @unique
   user     User     @relation(fields: [userId], references: [id])
-  date     DateTime
+  date     DateTime @default(now())
   poidsKg  Float
   calories Float?
 }
