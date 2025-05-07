@@ -15,23 +15,24 @@ datasource db {
 }
 
 model User {
-  id        String     @id @default(cuid())
-  name      String?
-  surname   String?
-  username  String?    @unique
-  email     String?    @unique
-  birthdate DateTime?
-  age       Int?
-  sizeCm    Int?
-  weight    Float?
-  gender    String?
-  password  String?
-  createdAt DateTime   @default(now())
-  updatedAt DateTime   @updatedAt
-  Goal      Goal[]
-  Workout   Workout[]
-  Progress  Progress[]
-  role      String?    @default("user")
+  id              String     @id @default(cuid())
+  name            String?
+  surname         String?
+  username        String?    @unique
+  email           String?    @unique
+  birthdate       DateTime?
+  age             Int?
+  sizeCm          Int?
+  initialWeightKg Float?
+  weightKg        Float?
+  gender          String?
+  password        String?
+  createdAt       DateTime   @default(now())
+  updatedAt       DateTime   @updatedAt
+  Goal            Goal[]
+  Workout         Workout[]
+  Progress        Progress[]
+  role            String?    @default("user")
 }
 
 model Goal {

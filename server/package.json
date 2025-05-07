@@ -8,7 +8,8 @@
     "dev": "nodemon index.js",
     "start": "node index.js",
     "migrate": "npx prisma migrate dev",
-    "migrate:deploy": "npx prisma migrate deploy"
+    "migrate:deploy": "npx prisma migrate deploy",
+    "generate": "npx prisma generate"
   },
   "_moduleAliases": {
     "@entities": "./entities",

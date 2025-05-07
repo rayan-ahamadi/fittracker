@@ -134,9 +134,17 @@ const deleteUser = async (req, res) => {
     }
 
     try {
-        await prisma.user.delete({
-            where: { id: userId }
-        });
+        await prisma.$transaction([
+            prisma.goal.deleteMany({
+                where: { userId: userId }
+            }),
+            prisma.progress.deleteMany({
+                where: { userId: userId }
+            }),
+            prisma.user.delete({
+                where: { id: userId }
+            })
+        ]);
         res.status(200).json({ message: 'Utilisateur supprimé avec succès' });
     } catch (error) {
         res.status(500).json({ error: 'Erreur lors de la suppression de l\'utilisateur' });
@@ -257,22 +265,38 @@ const updateProgress = async (req, res) => {
     try {
 
         if (existingProgress) {
-            // Si la progression existe déjà, on la met à jour
-            const updatedProgress = await prisma.progress.update({
-                where: { id: existingProgress.id },
-                data: {
-                    ...progress
-                }
-            });
+            const updatedProgress = await prisma.$transaction([
+                prisma.progress.update({
+                    where: { id: existingProgress.id },
+                    data: {
+                        ...progress
+                    }
+                }),
+                prisma.user.update({
+                    where: { id: userId },
+                    data: {
+                        weightKg: progress.poidsKg,
+                    }
+                })
+            ]);
+
             return res.status(200).json({ message: 'Progression du jour mise à jour avec succès', updatedProgress });
         } else {
-            const updatedProgress = await prisma.progress.create({
-                data: {
-                    userId: userId,
-                    ...progress
-                }
-            });
-            res.status(200).json({ message: 'Progression du jour ajouté avec succès', updatedProgress });
+            const newProgress = await prisma.$transaction([
+                prisma.progress.create({
+                    data: {
+                        userId: userId,
+                        ...progress
+                    }
+                }),
+                prisma.user.update({
+                    where: { id: userId },
+                    data: {
+                        weightKg: progress.poidsKg,
+                    }
+                })
+            ]);
+            res.status(200).json({ message: 'Progression du jour ajouté avec succès', newProgress });
         }
     } catch (error) {
         res.status(500).json({ error: 'Erreur lors de la mise à jour de vos objectifs' });
@@ -292,6 +316,24 @@ const deleteProgress = async (req, res) => {
         await prisma.progress.delete({
             where: { id: progressId }
         });
+
+        // Récuperer la dernière progression de l'utilisateur
+        const lastProgress = await prisma.progress.findUnique({
+            where: { userId: userId },
+            orderBy: { date: 'desc' }
+        });
+
+
+        // Mettre à jour le poids de l'utilisateur
+        if (lastProgress) {
+            await prisma.user.update({
+                where: { id: userId },
+                data: {
+                    weightKg: lastProgress.poidsKg
+                }
+            });
+        }
+
         res.status(200).json({ message: 'Progression supprimée avec succès' });
     } catch (error) {
         res.status(500).json({ error: 'Erreur lors de la suppression de la progression' });

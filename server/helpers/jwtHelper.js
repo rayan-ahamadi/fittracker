@@ -24,13 +24,13 @@ function refreshToken(req, res) {
     res.cookie('jwt', newToken, {
       httpOnly: true,
       sameSite: "none",
-      secure: true 
+      secure: true
     });
 
     res.cookie('refreshToken', newRefreshToken, {
       httpOnly: true,
       sameSite: 'none',
-      secure: true 
+      secure: true
     });
 
     return res.json({ message: 'Token refreshed' });
@@ -62,7 +62,11 @@ function checkTokens(req, res) {
         return res.status(401).json({ message: 'Votre session a expiré' });
       }
     }
-    return res.status(200).json({ message: 'Token valide' });
+    // Récuperer les infos de l'user dans le token
+    const decoded = verifyToken(token);
+    const userId = decoded.id;
+
+    return res.status(200).json({ message: 'Token valide', userId: userId });
   } catch (error) {
     return res.status(403).json({ message: 'Erreur lors de la vérification du token' });
   }
@@ -73,4 +77,4 @@ function decodeToken(token) {
   return jwt.decode(token);
 }
 
-module.exports = { generateToken,generateRefreshToken, refreshToken, verifyToken, decodeToken, checkTokens };
+module.exports = { generateToken, generateRefreshToken, refreshToken, verifyToken, decodeToken, checkTokens };

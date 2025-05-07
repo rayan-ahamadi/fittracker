@@ -1449,13 +1449,15 @@ export namespace Prisma {
   export type UserAvgAggregateOutputType = {
     age: number | null
     sizeCm: number | null
-    weight: number | null
+    initialWeightKg: number | null
+    weightKg: number | null
   }
 
   export type UserSumAggregateOutputType = {
     age: number | null
     sizeCm: number | null
-    weight: number | null
+    initialWeightKg: number | null
+    weightKg: number | null
   }
 
   export type UserMinAggregateOutputType = {
@@ -1467,7 +1469,8 @@ export namespace Prisma {
     birthdate: Date | null
     age: number | null
     sizeCm: number | null
-    weight: number | null
+    initialWeightKg: number | null
+    weightKg: number | null
     gender: string | null
     password: string | null
     createdAt: Date | null
@@ -1484,7 +1487,8 @@ export namespace Prisma {
     birthdate: Date | null
     age: number | null
     sizeCm: number | null
-    weight: number | null
+    initialWeightKg: number | null
+    weightKg: number | null
     gender: string | null
     password: string | null
     createdAt: Date | null
@@ -1501,7 +1505,8 @@ export namespace Prisma {
     birthdate: number
     age: number
     sizeCm: number
-    weight: number
+    initialWeightKg: number
+    weightKg: number
     gender: number
     password: number
     createdAt: number
@@ -1514,13 +1519,15 @@ export namespace Prisma {
   export type UserAvgAggregateInputType = {
     age?: true
     sizeCm?: true
-    weight?: true
+    initialWeightKg?: true
+    weightKg?: true
   }
 
   export type UserSumAggregateInputType = {
     age?: true
     sizeCm?: true
-    weight?: true
+    initialWeightKg?: true
+    weightKg?: true
   }
 
   export type UserMinAggregateInputType = {
@@ -1532,7 +1539,8 @@ export namespace Prisma {
     birthdate?: true
     age?: true
     sizeCm?: true
-    weight?: true
+    initialWeightKg?: true
+    weightKg?: true
     gender?: true
     password?: true
     createdAt?: true
@@ -1549,7 +1557,8 @@ export namespace Prisma {
     birthdate?: true
     age?: true
     sizeCm?: true
-    weight?: true
+    initialWeightKg?: true
+    weightKg?: true
     gender?: true
     password?: true
     createdAt?: true
@@ -1566,7 +1575,8 @@ export namespace Prisma {
     birthdate?: true
     age?: true
     sizeCm?: true
-    weight?: true
+    initialWeightKg?: true
+    weightKg?: true
     gender?: true
     password?: true
     createdAt?: true
@@ -1670,7 +1680,8 @@ export namespace Prisma {
     birthdate: Date | null
     age: number | null
     sizeCm: number | null
-    weight: number | null
+    initialWeightKg: number | null
+    weightKg: number | null
     gender: string | null
     password: string | null
     createdAt: Date
@@ -1706,7 +1717,8 @@ export namespace Prisma {
     birthdate?: boolean
     age?: boolean
     sizeCm?: boolean
-    weight?: boolean
+    initialWeightKg?: boolean
+    weightKg?: boolean
     gender?: boolean
     password?: boolean
     createdAt?: boolean
@@ -1727,7 +1739,8 @@ export namespace Prisma {
     birthdate?: boolean
     age?: boolean
     sizeCm?: boolean
-    weight?: boolean
+    initialWeightKg?: boolean
+    weightKg?: boolean
     gender?: boolean
     password?: boolean
     createdAt?: boolean
@@ -1744,7 +1757,8 @@ export namespace Prisma {
     birthdate?: boolean
     age?: boolean
     sizeCm?: boolean
-    weight?: boolean
+    initialWeightKg?: boolean
+    weightKg?: boolean
     gender?: boolean
     password?: boolean
     createdAt?: boolean
@@ -1761,7 +1775,8 @@ export namespace Prisma {
     birthdate?: boolean
     age?: boolean
     sizeCm?: boolean
-    weight?: boolean
+    initialWeightKg?: boolean
+    weightKg?: boolean
     gender?: boolean
     password?: boolean
     createdAt?: boolean
@@ -1769,7 +1784,7 @@ export namespace Prisma {
     role?: boolean
   }
 
-  export type UserOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "name" | "surname" | "username" | "email" | "birthdate" | "age" | "sizeCm" | "weight" | "gender" | "password" | "createdAt" | "updatedAt" | "role", ExtArgs["result"]["user"]>
+  export type UserOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "name" | "surname" | "username" | "email" | "birthdate" | "age" | "sizeCm" | "initialWeightKg" | "weightKg" | "gender" | "password" | "createdAt" | "updatedAt" | "role", ExtArgs["result"]["user"]>
   export type UserInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     Goal?: boolean | User$GoalArgs<ExtArgs>
     Workout?: boolean | User$WorkoutArgs<ExtArgs>
@@ -1795,7 +1810,8 @@ export namespace Prisma {
       birthdate: Date | null
       age: number | null
       sizeCm: number | null
-      weight: number | null
+      initialWeightKg: number | null
+      weightKg: number | null
       gender: string | null
       password: string | null
       createdAt: Date
@@ -2235,7 +2251,8 @@ export namespace Prisma {
     readonly birthdate: FieldRef<"User", 'DateTime'>
     readonly age: FieldRef<"User", 'Int'>
     readonly sizeCm: FieldRef<"User", 'Int'>
-    readonly weight: FieldRef<"User", 'Float'>
+    readonly initialWeightKg: FieldRef<"User", 'Float'>
+    readonly weightKg: FieldRef<"User", 'Float'>
     readonly gender: FieldRef<"User", 'String'>
     readonly password: FieldRef<"User", 'String'>
     readonly createdAt: FieldRef<"User", 'DateTime'>
@@ -8384,7 +8401,8 @@ export namespace Prisma {
     birthdate: 'birthdate',
     age: 'age',
     sizeCm: 'sizeCm',
-    weight: 'weight',
+    initialWeightKg: 'initialWeightKg',
+    weightKg: 'weightKg',
     gender: 'gender',
     password: 'password',
     createdAt: 'createdAt',
@@ -8589,7 +8607,8 @@ export namespace Prisma {
     birthdate?: DateTimeNullableFilter<"User"> | Date | string | null
     age?: IntNullableFilter<"User"> | number | null
     sizeCm?: IntNullableFilter<"User"> | number | null
-    weight?: FloatNullableFilter<"User"> | number | null
+    initialWeightKg?: FloatNullableFilter<"User"> | number | null
+    weightKg?: FloatNullableFilter<"User"> | number | null
     gender?: StringNullableFilter<"User"> | string | null
     password?: StringNullableFilter<"User"> | string | null
     createdAt?: DateTimeFilter<"User"> | Date | string
@@ -8609,7 +8628,8 @@ export namespace Prisma {
     birthdate?: SortOrderInput | SortOrder
     age?: SortOrderInput | SortOrder
     sizeCm?: SortOrderInput | SortOrder
-    weight?: SortOrderInput | SortOrder
+    initialWeightKg?: SortOrderInput | SortOrder
+    weightKg?: SortOrderInput | SortOrder
     gender?: SortOrderInput | SortOrder
     password?: SortOrderInput | SortOrder
     createdAt?: SortOrder
@@ -8632,7 +8652,8 @@ export namespace Prisma {
     birthdate?: DateTimeNullableFilter<"User"> | Date | string | null
     age?: IntNullableFilter<"User"> | number | null
     sizeCm?: IntNullableFilter<"User"> | number | null
-    weight?: FloatNullableFilter<"User"> | number | null
+    initialWeightKg?: FloatNullableFilter<"User"> | number | null
+    weightKg?: FloatNullableFilter<"User"> | number | null
     gender?: StringNullableFilter<"User"> | string | null
     password?: StringNullableFilter<"User"> | string | null
     createdAt?: DateTimeFilter<"User"> | Date | string
@@ -8652,7 +8673,8 @@ export namespace Prisma {
     birthdate?: SortOrderInput | SortOrder
     age?: SortOrderInput | SortOrder
     sizeCm?: SortOrderInput | SortOrder
-    weight?: SortOrderInput | SortOrder
+    initialWeightKg?: SortOrderInput | SortOrder
+    weightKg?: SortOrderInput | SortOrder
     gender?: SortOrderInput | SortOrder
     password?: SortOrderInput | SortOrder
     createdAt?: SortOrder
@@ -8677,7 +8699,8 @@ export namespace Prisma {
     birthdate?: DateTimeNullableWithAggregatesFilter<"User"> | Date | string | null
     age?: IntNullableWithAggregatesFilter<"User"> | number | null
     sizeCm?: IntNullableWithAggregatesFilter<"User"> | number | null
-    weight?: FloatNullableWithAggregatesFilter<"User"> | number | null
+    initialWeightKg?: FloatNullableWithAggregatesFilter<"User"> | number | null
+    weightKg?: FloatNullableWithAggregatesFilter<"User"> | number | null
     gender?: StringNullableWithAggregatesFilter<"User"> | string | null
     password?: StringNullableWithAggregatesFilter<"User"> | string | null
     createdAt?: DateTimeWithAggregatesFilter<"User"> | Date | string
@@ -9025,7 +9048,8 @@ export namespace Prisma {
     birthdate?: Date | string | null
     age?: number | null
     sizeCm?: number | null
-    weight?: number | null
+    initialWeightKg?: number | null
+    weightKg?: number | null
     gender?: string | null
     password?: string | null
     createdAt?: Date | string
@@ -9045,7 +9069,8 @@ export namespace Prisma {
     birthdate?: Date | string | null
     age?: number | null
     sizeCm?: number | null
-    weight?: number | null
+    initialWeightKg?: number | null
+    weightKg?: number | null
     gender?: string | null
     password?: string | null
     createdAt?: Date | string
@@ -9065,7 +9090,8 @@ export namespace Prisma {
     birthdate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     age?: NullableIntFieldUpdateOperationsInput | number | null
     sizeCm?: NullableIntFieldUpdateOperationsInput | number | null
-    weight?: NullableFloatFieldUpdateOperationsInput | number | null
+    initialWeightKg?: NullableFloatFieldUpdateOperationsInput | number | null
+    weightKg?: NullableFloatFieldUpdateOperationsInput | number | null
     gender?: NullableStringFieldUpdateOperationsInput | string | null
     password?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -9085,7 +9111,8 @@ export namespace Prisma {
     birthdate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     age?: NullableIntFieldUpdateOperationsInput | number | null
     sizeCm?: NullableIntFieldUpdateOperationsInput | number | null
-    weight?: NullableFloatFieldUpdateOperationsInput | number | null
+    initialWeightKg?: NullableFloatFieldUpdateOperationsInput | number | null
+    weightKg?: NullableFloatFieldUpdateOperationsInput | number | null
     gender?: NullableStringFieldUpdateOperationsInput | string | null
     password?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -9105,7 +9132,8 @@ export namespace Prisma {
     birthdate?: Date | string | null
     age?: number | null
     sizeCm?: number | null
-    weight?: number | null
+    initialWeightKg?: number | null
+    weightKg?: number | null
     gender?: string | null
     password?: string | null
     createdAt?: Date | string
@@ -9122,7 +9150,8 @@ export namespace Prisma {
     birthdate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     age?: NullableIntFieldUpdateOperationsInput | number | null
     sizeCm?: NullableIntFieldUpdateOperationsInput | number | null
-    weight?: NullableFloatFieldUpdateOperationsInput | number | null
+    initialWeightKg?: NullableFloatFieldUpdateOperationsInput | number | null
+    weightKg?: NullableFloatFieldUpdateOperationsInput | number | null
     gender?: NullableStringFieldUpdateOperationsInput | string | null
     password?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -9139,7 +9168,8 @@ export namespace Prisma {
     birthdate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     age?: NullableIntFieldUpdateOperationsInput | number | null
     sizeCm?: NullableIntFieldUpdateOperationsInput | number | null
-    weight?: NullableFloatFieldUpdateOperationsInput | number | null
+    initialWeightKg?: NullableFloatFieldUpdateOperationsInput | number | null
+    weightKg?: NullableFloatFieldUpdateOperationsInput | number | null
     gender?: NullableStringFieldUpdateOperationsInput | string | null
     password?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -9589,7 +9619,8 @@ export namespace Prisma {
     birthdate?: SortOrder
     age?: SortOrder
     sizeCm?: SortOrder
-    weight?: SortOrder
+    initialWeightKg?: SortOrder
+    weightKg?: SortOrder
     gender?: SortOrder
     password?: SortOrder
     createdAt?: SortOrder
@@ -9600,7 +9631,8 @@ export namespace Prisma {
   export type UserAvgOrderByAggregateInput = {
     age?: SortOrder
     sizeCm?: SortOrder
-    weight?: SortOrder
+    initialWeightKg?: SortOrder
+    weightKg?: SortOrder
   }
 
   export type UserMaxOrderByAggregateInput = {
@@ -9612,7 +9644,8 @@ export namespace Prisma {
     birthdate?: SortOrder
     age?: SortOrder
     sizeCm?: SortOrder
-    weight?: SortOrder
+    initialWeightKg?: SortOrder
+    weightKg?: SortOrder
     gender?: SortOrder
     password?: SortOrder
     createdAt?: SortOrder
@@ -9629,7 +9662,8 @@ export namespace Prisma {
     birthdate?: SortOrder
     age?: SortOrder
     sizeCm?: SortOrder
-    weight?: SortOrder
+    initialWeightKg?: SortOrder
+    weightKg?: SortOrder
     gender?: SortOrder
     password?: SortOrder
     createdAt?: SortOrder
@@ -9640,7 +9674,8 @@ export namespace Prisma {
   export type UserSumOrderByAggregateInput = {
     age?: SortOrder
     sizeCm?: SortOrder
-    weight?: SortOrder
+    initialWeightKg?: SortOrder
+    weightKg?: SortOrder
   }
 
   export type StringWithAggregatesFilter<$PrismaModel = never> = {
@@ -10803,7 +10838,8 @@ export namespace Prisma {
     birthdate?: Date | string | null
     age?: number | null
     sizeCm?: number | null
-    weight?: number | null
+    initialWeightKg?: number | null
+    weightKg?: number | null
     gender?: string | null
     password?: string | null
     createdAt?: Date | string
@@ -10822,7 +10858,8 @@ export namespace Prisma {
     birthdate?: Date | string | null
     age?: number | null
     sizeCm?: number | null
-    weight?: number | null
+    initialWeightKg?: number | null
+    weightKg?: number | null
     gender?: string | null
     password?: string | null
     createdAt?: Date | string
@@ -10857,7 +10894,8 @@ export namespace Prisma {
     birthdate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     age?: NullableIntFieldUpdateOperationsInput | number | null
     sizeCm?: NullableIntFieldUpdateOperationsInput | number | null
-    weight?: NullableFloatFieldUpdateOperationsInput | number | null
+    initialWeightKg?: NullableFloatFieldUpdateOperationsInput | number | null
+    weightKg?: NullableFloatFieldUpdateOperationsInput | number | null
     gender?: NullableStringFieldUpdateOperationsInput | string | null
     password?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -10876,7 +10914,8 @@ export namespace Prisma {
     birthdate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     age?: NullableIntFieldUpdateOperationsInput | number | null
     sizeCm?: NullableIntFieldUpdateOperationsInput | number | null
-    weight?: NullableFloatFieldUpdateOperationsInput | number | null
+    initialWeightKg?: NullableFloatFieldUpdateOperationsInput | number | null
+    weightKg?: NullableFloatFieldUpdateOperationsInput | number | null
     gender?: NullableStringFieldUpdateOperationsInput | string | null
     password?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -10895,7 +10934,8 @@ export namespace Prisma {
     birthdate?: Date | string | null
     age?: number | null
     sizeCm?: number | null
-    weight?: number | null
+    initialWeightKg?: number | null
+    weightKg?: number | null
     gender?: string | null
     password?: string | null
     createdAt?: Date | string
@@ -10914,7 +10954,8 @@ export namespace Prisma {
     birthdate?: Date | string | null
     age?: number | null
     sizeCm?: number | null
-    weight?: number | null
+    initialWeightKg?: number | null
+    weightKg?: number | null
     gender?: string | null
     password?: string | null
     createdAt?: Date | string
@@ -10949,7 +10990,8 @@ export namespace Prisma {
     birthdate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     age?: NullableIntFieldUpdateOperationsInput | number | null
     sizeCm?: NullableIntFieldUpdateOperationsInput | number | null
-    weight?: NullableFloatFieldUpdateOperationsInput | number | null
+    initialWeightKg?: NullableFloatFieldUpdateOperationsInput | number | null
+    weightKg?: NullableFloatFieldUpdateOperationsInput | number | null
     gender?: NullableStringFieldUpdateOperationsInput | string | null
     password?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -10968,7 +11010,8 @@ export namespace Prisma {
     birthdate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     age?: NullableIntFieldUpdateOperationsInput | number | null
     sizeCm?: NullableIntFieldUpdateOperationsInput | number | null
-    weight?: NullableFloatFieldUpdateOperationsInput | number | null
+    initialWeightKg?: NullableFloatFieldUpdateOperationsInput | number | null
+    weightKg?: NullableFloatFieldUpdateOperationsInput | number | null
     gender?: NullableStringFieldUpdateOperationsInput | string | null
     password?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -10987,7 +11030,8 @@ export namespace Prisma {
     birthdate?: Date | string | null
     age?: number | null
     sizeCm?: number | null
-    weight?: number | null
+    initialWeightKg?: number | null
+    weightKg?: number | null
     gender?: string | null
     password?: string | null
     createdAt?: Date | string
@@ -11006,7 +11050,8 @@ export namespace Prisma {
     birthdate?: Date | string | null
     age?: number | null
     sizeCm?: number | null
-    weight?: number | null
+    initialWeightKg?: number | null
+    weightKg?: number | null
     gender?: string | null
     password?: string | null
     createdAt?: Date | string
@@ -11068,7 +11113,8 @@ export namespace Prisma {
     birthdate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     age?: NullableIntFieldUpdateOperationsInput | number | null
     sizeCm?: NullableIntFieldUpdateOperationsInput | number | null
-    weight?: NullableFloatFieldUpdateOperationsInput | number | null
+    initialWeightKg?: NullableFloatFieldUpdateOperationsInput | number | null
+    weightKg?: NullableFloatFieldUpdateOperationsInput | number | null
     gender?: NullableStringFieldUpdateOperationsInput | string | null
     password?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -11087,7 +11133,8 @@ export namespace Prisma {
     birthdate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     age?: NullableIntFieldUpdateOperationsInput | number | null
     sizeCm?: NullableIntFieldUpdateOperationsInput | number | null
-    weight?: NullableFloatFieldUpdateOperationsInput | number | null
+    initialWeightKg?: NullableFloatFieldUpdateOperationsInput | number | null
+    weightKg?: NullableFloatFieldUpdateOperationsInput | number | null
     gender?: NullableStringFieldUpdateOperationsInput | string | null
     password?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
