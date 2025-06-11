@@ -1,10 +1,16 @@
+"use client"
 import Image from "next/image";
-import styles from "./page.module.css";
+import styles from './page.module.css'
+import Homebanner1 from '@/components/HomeBanner1/Homebanner1';
+import Homebanner2 from '@/components/HomeBanner2/Homebanner2';
 
 export default function Home() {
   return (
-      <main className={styles.main}>
- test hdjqdhs       
+      <main className={styles.main}>    
+        <Homebanner1/>
+        <Homebanner2/>
       </main>
-  )
+
+  );
 }
+

@@ -18,8 +18,10 @@
         "name": "next"
       }
     ],
+    "baseUrl": ".",                         // ✅ ajout essentiel pour que "paths" fonctionne
     "paths": {
-      "@/*": ["./src/*"]
+      "@/*": ["./src/*"],                   // déjà présent (générique)
+      "@/components/*": ["src/components/*"] // ✅ ajout spécifique pour components
     }
   },
   "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts"],
